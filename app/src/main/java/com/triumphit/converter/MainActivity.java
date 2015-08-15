@@ -28,13 +28,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener((FragmentDrawer.FragmentDrawerListener) this);
+        drawerFragment.setDrawerListener(this);
         displayView(0);
     }
 
@@ -62,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_body, fragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+
 
             // set the toolbar title
             getSupportActionBar().setTitle(title);

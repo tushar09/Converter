@@ -170,7 +170,7 @@ public class FragmentDrawer extends android.support.v4.app.Fragment{
             if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
                 clickListener.onClick(child, rv.getChildPosition(child));
             }
-            return false;
+            return true;
         }
 
         @Override
