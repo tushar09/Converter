@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.triumphit.converter"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -17,10 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/values-v21'] } }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res/values-v21', 'src/main/res/values-v11']
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:22.+'
+    compile 'com.android.support:recyclerview-v7:22.+'
 }
