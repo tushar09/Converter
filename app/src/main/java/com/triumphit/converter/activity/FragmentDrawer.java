@@ -179,7 +179,7 @@ public class FragmentDrawer extends android.support.v4.app.Fragment{
 
     }
     public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
+        void onDrawerItemSelected(View view, int position);
     }
 
 }
