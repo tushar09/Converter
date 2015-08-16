@@ -1,6 +1,7 @@
 package com.triumphit.converter.activity;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.triumphit.converter.R;
 
@@ -20,6 +22,8 @@ import com.triumphit.converter.R;
  * create an instance of this fragment.
  */
 public class About extends Fragment {
+    TextView about;
+    View rootView;
     public About() {
         // Required empty public constructor
     }
@@ -33,8 +37,13 @@ public class About extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
-
+        rootView = inflater.inflate(R.layout.fragment_about, container, false);
+        about = (TextView) rootView.findViewById(R.id.about);
+        try {
+            about.setText(getResources().getString(R.string.version) + ": " + getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // Inflate the layout for this fragment
         return rootView;

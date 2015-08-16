@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="abir">ABIR <a href="muhaiminurabir@gmail.com"></a></string>
+    <string name="version">Version</string>
+    <string name="developedby">Developed By:</string>
     <string name="app_name">Converter</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
