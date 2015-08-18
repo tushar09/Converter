@@ -7,8 +7,8 @@
 
     <com.wrapp.floatlabelededittext.FloatLabeledEditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        float:fletPaddingBottom="10dp"
+        android:layout_height="70dp"
+        float:fletPaddingTop="10dp"
 
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
@@ -18,8 +18,11 @@
         android:layout_marginStart="63dp"
         android:layout_marginTop="46dp">
         <EditText
+            android:padding="3dp"
+            android:background="@drawable/rounded_edit_text"
+            android:textColor="@color/colorPrimary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="Your Value"
             android:inputType="numberDecimal" />
     </com.wrapp.floatlabelededittext.FloatLabeledEditText>
