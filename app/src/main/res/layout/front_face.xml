@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:float="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/rv"
+    android:foreground="@drawable/dim">
+    <RelativeLayout
+        android:id="@+id/bac_dim_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"
+        android:visibility="gone" >
+    </RelativeLayout>
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_awesome_toolbar"
@@ -13,24 +24,111 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
 
+
     <com.andexert.library.RippleView
-        android:id="@+id/more"
-        android:layout_width="240dp"
-        android:layout_height="80dp"
+        app:rv_color="@color/colorPrimary"
+        android:id="@+id/more3"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
         app:rv_centered="false"
         app:rv_zoom="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignLeft="@+id/more2"
+        android:layout_alignStart="@+id/more2">
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="290dp"
+            android:layout_height="75dp"
+            float:fletPaddingBottom="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/more"
+            android:layout_alignStart="@+id/more">
+
+            <EditText
+                android:textSize="50dp"
+                android:background="@drawable/rounded_edit_text"
+                android:paddingLeft="7dp"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:hint="To"
+                android:inputType="numberDecimal" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+    </com.andexert.library.RippleView>
+    <com.andexert.library.RippleView
+        app:rv_color="@color/colorPrimary"
+        android:id="@+id/more2"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        app:rv_centered="false"
+        app:rv_zoom="true"
+        android:layout_below="@+id/my_awesome_toolbar"
+        android:layout_alignLeft="@+id/more"
+        android:layout_alignStart="@+id/more"
+        android:layout_marginTop="56dp">
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="290dp"
+            android:layout_height="75dp"
+            float:fletPaddingBottom="10dp"
+            float:fletTextAppearance="@style/floatlabelededittext"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/more"
+            android:layout_alignStart="@+id/more">
+
+            <EditText
+                android:textSize="50dp"
+                android:background="@drawable/rounded_edit_text"
+                android:paddingLeft="7dp"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:hint="From"
+                android:inputType="numberDecimal" />
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+    </com.andexert.library.RippleView>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/more"
+        android:layout_width="260dp"
+        android:layout_height="75dp"
+        app:rv_centered="false"
+        app:rv_zoom="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="69dp">
+
         <Button
 
             android:textColor="#ffffff"
             android:layout_width="260dp"
-            android:layout_height="100dp"
+            android:layout_height="75dp"
             android:text="Click To Choose"
             android:id="@+id/button"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-        </com.andexert.library.RippleView>
+            android:layout_alignBottom="@+id/more"
+            android:layout_alignLeft="@+id/more"
+            android:layout_alignStart="@+id/more" />
+    </com.andexert.library.RippleView>
+
+    <com.andexert.library.RippleView
+        android:id="@+id/fromRipple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:rv_centered="false"
+        app:rv_zoom="true"
+        app:rv_zoomScale="1.3"
+        app:rv_color="@color/colorPrimary"
+        android:layout_marginTop="19dp"
+        android:layout_alignTop="@+id/more2"
+        android:layout_toRightOf="@+id/more2"
+        android:layout_toEndOf="@+id/more2">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:id="@+id/from"
+            android:text="USD"/>
+    </com.andexert.library.RippleView>
 
 
 

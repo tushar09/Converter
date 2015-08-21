@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
     <string name="abir">ABIR <a href="muhaiminurabir@gmail.com"></a></string>
     <string name="version">Version</string>
     <string name="developedby">Developed By:</string>
@@ -27,5 +37,7 @@
     <string name="title_home">Home</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_advanced">Advanced</string>
+    <string name="title_activity_all_elements">All_elements</string>
+    <string name="title_activity_pic_currency">PicCurrency</string>
 
 </resources>

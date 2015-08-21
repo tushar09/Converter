@@ -1,5 +1,6 @@
 package com.triumphit.converter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,7 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import com.andexert.library.RippleView;
 
@@ -18,6 +22,7 @@ import com.andexert.library.RippleView;
 public class MainActivity extends AppCompatActivity {
 
     Button b;
+    Spinner from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +31,25 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+
         b = (Button) findViewById(R.id.button);
         b.setBackgroundColor(Color.parseColor("#d1006c"));
         RippleView pv = (RippleView) findViewById(R.id.more);
         pv.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
             @Override
             public void onComplete(RippleView rippleView) {
-                Log.e("finished", "finishi");
-                b.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.e("finished", "finishi2");
 
-                    }
-                });
             }
         });
+        RippleView fromRipple = (RippleView) findViewById(R.id.fromRipple);
+        fromRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
+            @Override
+            public void onComplete(RippleView rippleView) {
+                Intent i = new Intent(MainActivity.this, PicCurrency.class);
+                startActivity(i);
+            }
+        });
+
     }
 
 
