@@ -129,6 +129,25 @@
             android:id="@+id/from"
             android:text="USD"/>
     </com.andexert.library.RippleView>
+    <com.andexert.library.RippleView
+        android:id="@+id/toRipple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:rv_centered="false"
+        app:rv_zoom="true"
+        app:rv_zoomScale="1.3"
+        app:rv_color="@color/colorPrimary"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/more3"
+        android:layout_toEndOf="@+id/more3">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:id="@+id/to"
+            android:text="USD"/>
+    </com.andexert.library.RippleView>
 
 
 
