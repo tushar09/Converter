@@ -12,12 +12,12 @@ public class PicCurrency extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pic_currency);
-        getSupportActionBar().hide();
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        getWindow().setLayout((int)(width * .8), (int)(height * .6));
+//        getSupportActionBar().hide();
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        int width = dm.widthPixels;
+//        int height = dm.heightPixels;
+//        getWindow().setLayout((int)(width * .9), (int)(height * .7));
     }
 
     @Override

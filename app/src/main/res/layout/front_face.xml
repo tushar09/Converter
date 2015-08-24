@@ -149,7 +149,4 @@
             android:text="USD"/>
     </com.andexert.library.RippleView>
 
-
-
-
 </RelativeLayout>
