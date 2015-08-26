@@ -20,7 +20,8 @@
         <activity
             android:name=".PicCurrency"
             android:label="@string/title_activity_pic_currency"
-            android:theme="@style/AppTheme.CustomTheme">
+            android:theme="@style/AppTheme.CustomTheme"
+            android:windowSoftInputMode="adjustPan">
         </activity>
     </application>
 

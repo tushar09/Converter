@@ -7,15 +7,6 @@
     android:orientation="vertical"
     android:id="@+id/rv"
     android:foreground="@drawable/dim">
-    <RelativeLayout
-        android:id="@+id/bac_dim_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#C0000000"
-        android:visibility="gone" >
-    </RelativeLayout>
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_awesome_toolbar"
         android:layout_width="match_parent"
