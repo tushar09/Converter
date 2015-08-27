@@ -1,5 +1,7 @@
 package com.triumphit.converter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,10 +9,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.andexert.library.RippleView;
 
 import java.util.ArrayList;
 
@@ -19,11 +25,19 @@ public class PicCurrency extends AppCompatActivity {
     ListView lv;
     ArrayList country, cur;
     EditText cnty, crncy;
+    public static String coun, curr = "";
+    private static LayoutInflater inflater = null;
+    View v = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pic_currency);
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = inflater.inflate(R.layout.piccurrency, null);
+        //RippleView rv = (RippleView) v.findViewById(R.id.listviewClicked);
+
+
         country = new ArrayList();
         cur = new ArrayList();
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
@@ -549,4 +563,11 @@ public class PicCurrency extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    void getFinins(){
+        Intent returnIntent = new Intent();
+        setResult(RESULT_CANCELED, returnIntent);
+        finish();
+    }
+
 }

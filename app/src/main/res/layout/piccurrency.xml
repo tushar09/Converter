@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="1">
     <com.andexert.library.RippleView
+        android:id="@+id/listviewClicked"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:rv_centered="false"
@@ -13,6 +14,7 @@
         app:rv_color="@color/colorPrimary"
         >
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:gravity="center"
