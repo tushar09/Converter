@@ -5,9 +5,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class PicCurrency extends AppCompatActivity {
 
     ListView lv;
     ArrayList country, cur;
+    EditText cnty, crncy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class PicCurrency extends AppCompatActivity {
         country = new ArrayList();
         cur = new ArrayList();
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
+        crncy = (EditText) findViewById(R.id.usd);
+        crncy.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         country.add("Afghanistan");
         country.add("Åland Islands (Finland)");

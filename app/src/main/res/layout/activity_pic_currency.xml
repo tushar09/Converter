@@ -57,6 +57,7 @@
                 android:layout_width="match_parent"
                 float:fletPadding="3dp">
                 <EditText
+                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:textSize="25sp"
                     android:background="@drawable/rounded_edit_text"
                     android:paddingLeft="7dp"
@@ -78,6 +79,7 @@
                 android:layout_width="match_parent"
                 float:fletPadding="3dp">
                 <EditText
+                    android:textCursorDrawable="@drawable/custom_cursor"
                     android:maxLength="3"
                     android:textSize="25sp"
                     android:background="@drawable/rounded_edit_text"
@@ -85,7 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="USD"
-                    android:inputType="textCapSentences" />
+                    android:inputType="textCapSentences"
+                    android:id="@+id/usd" />
             </com.wrapp.floatlabelededittext.FloatLabeledEditText>
         </LinearLayout>
     </LinearLayout>
