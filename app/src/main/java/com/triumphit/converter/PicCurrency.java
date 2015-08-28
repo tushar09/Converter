@@ -7,7 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +43,7 @@ public class PicCurrency extends AppCompatActivity {
         country = new ArrayList();
         cur = new ArrayList();
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
+        cnty = (EditText) findViewById(R.id.country);
         crncy = (EditText) findViewById(R.id.usd);
         crncy.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
@@ -540,6 +543,63 @@ public class PicCurrency extends AppCompatActivity {
 //        getWindow().setLayout((int)(width * .9), (int)(height * .7));\
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(new CountryAndCurListAdap(PicCurrency.this, country, cur));
+        cnty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() > 0) {
+                    String s = editable.toString();
+                    ArrayList cn = new ArrayList(), cr = new ArrayList();
+                    for (int i = 0; i < country.size(); i++) {
+                        if (country.get(i).toString().toLowerCase().startsWith(s.toLowerCase())) {
+                            cn.add(country.get(i));
+                            cr.add(cur.get(i));
+                        }
+                    }
+                    lv.setAdapter(new CountryAndCurListAdap(PicCurrency.this, cn, cr));
+                } else {
+                    lv.setAdapter(new CountryAndCurListAdap(PicCurrency.this, country, cur));
+                }
+            }
+        });
+
+        crncy.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() > 0) {
+                    String s = editable.toString();
+                    ArrayList cn = new ArrayList(), cr = new ArrayList();
+                    for (int i = 0; i < country.size(); i++) {
+                        if (cur.get(i).toString().toLowerCase().startsWith(s.toLowerCase())) {
+                            cn.add(country.get(i));
+                            cr.add(cur.get(i));
+                        }
+                    }
+                    lv.setAdapter(new CountryAndCurListAdap(PicCurrency.this, cn, cr));
+                } else {
+                    lv.setAdapter(new CountryAndCurListAdap(PicCurrency.this, country, cur));
+                }
+            }
+        });
     }
 
     @Override

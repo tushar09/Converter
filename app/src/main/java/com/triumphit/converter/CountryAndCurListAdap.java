@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -94,7 +96,8 @@ public class CountryAndCurListAdap extends BaseAdapter {
 
             }
         });
-
+        Animation animation = AnimationUtils.loadAnimation(((Activity)context), android.R.anim.slide_in_left);
+        convertView.startAnimation(animation);
         return convertView;
     }
     public static class Holder {
