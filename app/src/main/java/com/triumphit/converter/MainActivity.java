@@ -1,19 +1,20 @@
 package com.triumphit.converter;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
     TextView tvFrom, tvTo;
     PicCurrency pc;
     String curr, from_where;
+    EditText edfrom, edto;
 
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +45,19 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         pc = new PicCurrency();
 
+        final Animation anim = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+
         tvFrom = (TextView) findViewById(R.id.from);
         tvTo = (TextView) findViewById(R.id.to);
+        edfrom = (EditText) findViewById(R.id.edfrom);
+        edto = (EditText) findViewById(R.id.edto);
 
+        //tvFrom.startAnimation(anim);
 
+        //tvTo.startAnimation(anim);
 
         b = (Button) findViewById(R.id.button);
+        //b.startAnimation(anim);
         b.setBackgroundColor(Color.parseColor("#d1006c"));
         RippleView pv = (RippleView) findViewById(R.id.more);
         pv.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -55,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
         RippleView fromRipple = (RippleView) findViewById(R.id.fromRipple);
         RippleView toRipple = (RippleView) findViewById(R.id.toRipple);
         fromRipple.setOnRippleCompleteListener(new RippleView.OnRippleCompleteListener() {
@@ -71,9 +84,86 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(RippleView rippleView) {
                 Intent i = new Intent(MainActivity.this, PicCurrency.class);
                 from_where = "to";
+                //hideComponent();
                 startActivityForResult(i, 1);
             }
         });
+
+    }
+
+    private void showComponent() {
+        edfrom.setVisibility(View.VISIBLE);
+        edfrom.setX(-500);
+        edfrom.animate()
+                .translationY(edfrom.getWidth())
+                .setDuration(500)
+                .x(0).setStartDelay(100);
+
+        edto.setVisibility(View.VISIBLE);
+        edto.setX(-500);
+        edto.animate()
+                .translationY(edto.getWidth())
+                .setDuration(500)
+                .x(0).setStartDelay(250);
+
+        tvFrom.setVisibility(TextView.VISIBLE);
+        tvFrom.setX(-150);
+        tvFrom.animate()
+                .translationY(tvFrom.getWidth())
+                .setDuration(500)
+                .x(10).setStartDelay(400);
+
+        tvTo.setVisibility(TextView.VISIBLE);
+        tvTo.setX(-150);
+        tvTo.animate()
+                .translationY(tvTo.getWidth())
+                .setDuration(500)
+                .x(10).setStartDelay(550);
+
+        b.setVisibility(View.VISIBLE);
+        b.setX(-600);
+        b.animate()
+                .translationY(b.getWidth())
+                .setDuration(500)
+                .x(0).setStartDelay(500);
+
+    }
+
+    private void hideComponent() {
+        edfrom.setVisibility(View.VISIBLE);
+        edfrom.setX(0);
+        edfrom.animate()
+                .translationX(edfrom.getWidth())
+                .setDuration(500).alpha(0.0f)
+                .x(-500).setStartDelay(100);
+
+        edto.setVisibility(View.VISIBLE);
+        edto.setX(0);
+        edto.animate()
+                .translationX(edto.getWidth())
+                .setDuration(500).alpha(0.0f)
+                .x(-500).setStartDelay(250);
+
+        tvFrom.setVisibility(TextView.VISIBLE);
+        tvFrom.setX(10);
+        tvFrom.animate()
+                .translationX(tvFrom.getWidth())
+                .setDuration(500).alpha(0.0f)
+                .x(-150).setStartDelay(400);
+
+        tvTo.setVisibility(TextView.VISIBLE);
+        tvTo.setX(10);
+        tvTo.animate()
+                .translationX(tvTo.getWidth())
+                .setDuration(500).alpha(0.0f)
+                .x(-150).setStartDelay(550);
+
+        b.setVisibility(View.VISIBLE);
+        b.setX(0);
+        b.animate()
+                .translationX(b.getWidth())
+                .setDuration(500).alpha(0.0f)
+                .x(-600).setStartDelay(500);
 
     }
 
@@ -82,13 +172,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
+                //showComponent();
                 String result = data.getStringExtra("result");
                 //String from_where = data.getStringExtra("from_where");
-                if(from_where.equals("from")){
-                    tvFrom.setText(result);
-                }else if(from_where.equals("to")){
-                    tvTo.setText(result);
+                if (from_where.equals("from")) {
+                    if(result.equals("")){
+                        tvFrom.setText("USD");
+                    }else{
+                        tvFrom.setText(result);
+                    }
+
+                } else if (from_where.equals("to")) {
+                    if(result.equals("")){
+                        tvTo.setText("USD");
+                    }else{
+                        tvTo.setText(result);
+                    }
                 }
 
             }
@@ -121,22 +221,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-//        Bundle extras = getIntent().getExtras();
-//        String cur;
-//
-//        if (extras != null) {
-//            cur = extras.getString("cur");
-//            tvFrom.setText(cur);
-//            //Log.e("curr Clicked after", "" + curr);
-//        }
-        super.onResume();
-//        Intent intent = getIntent();
-//        String goID = intent.getStringExtra("goID");
-//        if(goID == null){
-//            //
-//        }else if( !goID.equals("") ){
-//            tvFrom.setText(goID);
-//        }
+    protected void onStart() {
+        showComponent();
+        super.onStart();
     }
+
 }
