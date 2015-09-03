@@ -1,30 +1,23 @@
 package com.triumphit.converter;
 
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-=======
->>>>>>> origin/master
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
-=======
->>>>>>> origin/master
 
 /**
  * Created by muhai on 8/30/2015.
  */
 public class HandleXML {
-<<<<<<< HEAD
     //new
     CustomEvents ce;
     private String urlString = null;
@@ -57,9 +50,6 @@ public class HandleXML {
 
     //
     /*private String Name = "Name";
-=======
-    private String Name = "Name";
->>>>>>> origin/master
     private String Rate = "Rate";
     private String Date = "Date";
     private String Time = "Time";
@@ -94,25 +84,16 @@ public class HandleXML {
 
     public String getBid(){
         return Bid;
-<<<<<<< HEAD
     }*/
 
     public void parseXMLAndStoreIt(XmlPullParser myParser) {
         int event;
         String text = null;
-=======
-    }
-
-    public void parseXMLAndStoreIt(XmlPullParser myParser) {
-        int event;
-        String text=null;
->>>>>>> origin/master
 
         try {
             event = myParser.getEventType();
 
             while (event != XmlPullParser.END_DOCUMENT) {
-<<<<<<< HEAD
                 String tagname = myParser.getName();
 
                 switch (event) {
@@ -120,12 +101,6 @@ public class HandleXML {
                         if (tagname.equalsIgnoreCase("rate")) {
                             cur = new Currency();
                         }
-=======
-                String name=myParser.getName();
-
-                switch (event){
-                    case XmlPullParser.START_TAG:
->>>>>>> origin/master
                         break;
 
                     case XmlPullParser.TEXT:
@@ -133,7 +108,6 @@ public class HandleXML {
                         break;
 
                     case XmlPullParser.END_TAG:
-<<<<<<< HEAD
                         if (tagname.equalsIgnoreCase("rate")) {
                             //allcurrency.add(cur);
                             cur.setRate(text);
@@ -186,68 +160,25 @@ public class HandleXML {
 //                        }
 
                         //Log.e("Abir", "" + cur.getName());
-=======
-                        if(name.equals("Name")){
-                            Name = text;
-                        }
-
-                        else if(name.equals("Rate")){
-                            Rate= text;
-                        }
-
-                        else if(name.equals("Date")){
-                            Date=text;
-                        }
-
-                        else if(name.equals("Time")){
-                            Time = text;
-                        }
-                        else if(name.equals("Ask")){
-                            Ask=text;
-                        }
-
-                        else if(name.equals("Bid")){
-                            Bid = text;
-                        }
-
-                        else{
-                        }
->>>>>>> origin/master
                         break;
                 }
                 event = myParser.next();
             }
             parsingComplete = false;
-<<<<<<< HEAD
 
         } catch (Exception x) {
             Log.e("Error", "" + x.toString());
-=======
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
->>>>>>> origin/master
         }
     }
 
     //------------------
-<<<<<<< HEAD
     public void fetchXML() {
         Thread thread = new Thread(new Runnable() {
-=======
-    public void fetchXML(){
-        Thread thread = new Thread(new Runnable(){
->>>>>>> origin/master
             @Override
             public void run() {
                 try {
                     URL url = new URL(urlString);
-<<<<<<< HEAD
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-=======
-                    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
->>>>>>> origin/master
 
                     conn.setReadTimeout(10000 /* milliseconds */);
                     conn.setConnectTimeout(15000 /* milliseconds */);
@@ -264,13 +195,8 @@ public class HandleXML {
 
                     parseXMLAndStoreIt(myparser);
                     stream.close();
-<<<<<<< HEAD
 
                 } catch (Exception e) {
-=======
-                }
-                catch (Exception e) {
->>>>>>> origin/master
                     e.printStackTrace();
                 }
             }
@@ -279,8 +205,4 @@ public class HandleXML {
     }
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 }
