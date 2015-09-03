@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**

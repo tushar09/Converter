@@ -23,7 +23,7 @@
         android:layout_height="75dp"
         app:rv_centered="false"
         app:rv_zoom="true"
-        android:layout_centerVertical="true"
+        android:layout_alignBottom="@+id/toRipple"
         android:layout_alignLeft="@+id/more2"
         android:layout_alignStart="@+id/more2">
         <com.wrapp.floatlabelededittext.FloatLabeledEditText
@@ -36,7 +36,7 @@
             android:layout_alignStart="@+id/more">
 
             <EditText
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textSize="50dp"
                 android:background="@drawable/rounded_edit_text"
                 android:paddingLeft="7dp"
@@ -69,7 +69,7 @@
             android:layout_alignStart="@+id/more">
 
             <EditText
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textSize="50dp"
                 android:background="@drawable/rounded_edit_text"
                 android:paddingLeft="7dp"
@@ -85,19 +85,19 @@
     <com.andexert.library.RippleView
         android:id="@+id/more"
         android:layout_width="260dp"
-        android:layout_height="75dp"
+        android:layout_height="45dp"
         app:rv_centered="false"
         app:rv_zoom="true"
+        android:layout_marginBottom="44dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="69dp">
+        android:layout_centerHorizontal="true">
 
         <Button
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="#ffffff"
             android:layout_width="260dp"
-            android:layout_height="75dp"
-            android:text="Click To Choose"
+            android:layout_height="45dp"
+            android:text="Tap To Convert"
             android:id="@+id/button"
             android:layout_alignBottom="@+id/more"
             android:layout_alignLeft="@+id/more"
@@ -117,7 +117,7 @@
         android:layout_toRightOf="@+id/more2"
         android:layout_toEndOf="@+id/more2">
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
         android:layout_toRightOf="@+id/more3"
         android:layout_toEndOf="@+id/more3">
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,5 +145,72 @@
             android:id="@+id/to"
             android:text="USD"/>
     </com.andexert.library.RippleView>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/more3"
+        android:layout_alignLeft="@+id/more3"
+        android:layout_alignStart="@+id/more3"
+        android:layout_alignRight="@+id/more3"
+        android:layout_alignEnd="@+id/more3"
+        android:layout_above="@+id/more">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tvRate" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tvDate" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tvTime"
+                android:layout_below="@+id/scrollView"
+                android:layout_alignLeft="@+id/more"
+                android:layout_alignStart="@+id/more" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tvAsk" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tvBid"
+                android:layout_alignBottom="@+id/scrollView"
+                android:layout_alignLeft="@+id/scrollView"
+                android:layout_alignStart="@+id/scrollView"
+                android:layout_marginBottom="27dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>
