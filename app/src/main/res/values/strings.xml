@@ -39,5 +39,10 @@
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_all_elements">All_elements</string>
     <string name="title_activity_pic_currency">PicCurrency</string>
+    <string name="title_activity_credit">Credit</string>
+
+    <string name="title_activity_creditfull">Creditfull</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

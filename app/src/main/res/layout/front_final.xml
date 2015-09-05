@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:float="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="4">
+    android:weightSum="5">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_awesome_toolbar"
         android:layout_width="match_parent"
@@ -15,6 +17,7 @@
         android:minHeight="?attr/actionBarSize" />
 
     <LinearLayout
+        android:layout_weight="0.01"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:orientation="horizontal"
@@ -78,6 +81,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:layout_weight="0.01"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -138,6 +142,7 @@
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
+        android:layout_weight="0.01"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -150,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="RATE"
                     android:id="@+id/tvRate"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
@@ -162,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="DATE"
                     android:id="@+id/tvDate"
                     android:layout_below="@+id/tvAsk"
                     android:layout_alignParentLeft="true" />
@@ -173,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="TIME"
                     android:id="@+id/tvTime"
                     android:layout_below="@+id/tvRate"
                     android:layout_alignParentLeft="true" />
@@ -184,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="ASK"
                     android:id="@+id/tvAsk"
                     android:layout_below="@+id/tvBid"
                     android:layout_alignParentLeft="true" />
@@ -195,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="BID"
                     android:id="@+id/tvBid"
                     android:layout_below="@+id/tvTime"
                     android:layout_alignParentLeft="true" />
@@ -207,7 +212,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.79">
+        android:layout_weight=".01">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -215,7 +220,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:id="@+id/more"
-                android:layout_width="260dp"
+                android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 app:rv_centered="false"
                 app:rv_zoom="true"
@@ -238,13 +243,41 @@
             </com.andexert.library.RippleView>
         </RelativeLayout>
     </LinearLayout>
-
-    <ProgressBar
-        android:indeterminate="true"
-        style="?android:attr/progressBarStyleHorizontal"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="4.95"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:visibility="gone"
+                android:indeterminateOnly="true"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar2"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+            <com.google.android.gms.ads.AdView
+                android:background="#333333"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-2851562992535827/4771111398">
+            </com.google.android.gms.ads.AdView>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
 
 </LinearLayout>
