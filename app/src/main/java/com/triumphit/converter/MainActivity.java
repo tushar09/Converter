@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.pushbots.push.Pushbots;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         setContentView(R.layout.front_final);
         //getS/upportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
         ce = this;
+
+        Pushbots.sharedInstance().init(this);
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
