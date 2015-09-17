@@ -1,5 +1,7 @@
 package com.triumphit.converter;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -7,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -18,10 +22,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -35,6 +41,9 @@ import android.widget.Toast;
 import com.andexert.library.RippleView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.pushbots.push.Pushbots;
 
 import java.util.ArrayList;
@@ -63,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
     EditText ae;
     private HandleXML obj;
     boolean connected = false;
+    Tracker t;
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
 
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -75,7 +89,19 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         //getS/upportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
         ce = this;
 
+
+
+        Account account = getAccount(AccountManager.get(MainActivity.this));
+        final String accountName = account.name;
+        String fullName = accountName.substring(0,accountName.lastIndexOf("@"));
+
+
         Pushbots.sharedInstance().init(this);
+        Pushbots.sharedInstance().setAlias(accountName);
+
+        t = ((GoogleAnalyticsApp) getApplication()).getTracker(GoogleAnalyticsApp.TrackerName.APP_TRACKER);
+        t.setScreenName("Currency Converter");
+        t.send(new HitBuilders.AppViewBuilder().build());
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -156,6 +182,11 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         ab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                t.send(new HitBuilders.EventBuilder()
+                        .setCategory("Currency")
+                        .setAction(edfrom.getText().toString() + " " + tvFrom.getText() + " to " + tvTo.getText())
+                        .setLabel(accountName)
+                        .build());
                 String g = "" + tvFrom.getText() + tvTo.getText() + "rate";
                 String name = tvFrom.getText().toString() + tvTo.getText().toString();
 
@@ -246,6 +277,53 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         } catch (Exception e) {
             //Do nothing, don't run but don't break
         }
+
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+            @Override
+            public void onShake(int count) {
+
+                final String from = tvFrom.getText().toString();
+                final String to = tvTo.getText().toString();
+
+                t.send(new HitBuilders.EventBuilder()
+                        .setCategory("Shaked")
+                        .setAction("Shaked for " + to + " to " + from)
+                        .build());
+
+                //Log.e("detected", "" + count);
+                final Animation in = new AlphaAnimation(0.0f, 1.0f);
+                in.setDuration(250);
+
+                final Animation out = new AlphaAnimation(1.0f, 0.0f);
+                out.setDuration(250);
+                tvFrom.startAnimation(out);
+                tvTo.startAnimation(out);
+                //tvFrom.setText(to);
+                out.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        tvFrom.setText(to);
+                        tvFrom.startAnimation(in);
+                        tvTo.setText(from);
+                        tvTo.startAnimation(in);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+        });
 
 
     }
@@ -455,5 +533,42 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
             android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
             clipboard.setPrimaryClip(clip);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(MainActivity.this).reportActivityStop(this);
+    }
+
+    public static Account getAccount(AccountManager accountManager) {
+        Account[] accounts = accountManager.getAccountsByType("com.google");
+        Account account;
+        if (accounts.length > 0) {
+            account = accounts[0];
+        } else {
+            account = null;
+        }
+        return account;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }
