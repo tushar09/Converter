@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -46,6 +47,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.pushbots.push.Pushbots;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,17 +86,21 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setProgressBarIndeterminateVisibility(true);
         setContentView(R.layout.front_final);
+        Context c = this;
         //getS/upportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d1006c")));
         ce = this;
 
 
 
-        Account account = getAccount(AccountManager.get(MainActivity.this));
-        final String accountName = account.name;
-        String fullName = accountName.substring(0,accountName.lastIndexOf("@"));
+        Account account = getAccount(AccountManager.get(getApplicationContext()));
+        final String accountName;
+        if(account == null){
+            accountName = "notSet";
+        } else{
+            accountName = account.name;
+        }
+        //String fullName = accountName.substring(0,accountName.lastIndexOf("@"));
 
 
         Pushbots.sharedInstance().init(this);
@@ -102,9 +109,19 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         t = ((GoogleAnalyticsApp) getApplication()).getTracker(GoogleAnalyticsApp.TrackerName.APP_TRACKER);
         t.setScreenName("Currency Converter");
         t.send(new HitBuilders.AppViewBuilder().build());
+        t.enableAdvertisingIdCollection(true);
+        t.enableAutoActivityTracking(true);
+        t.enableExceptionReporting(true);
+        t.setAnonymizeIp(true);
+
+        String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+        String deviceId = md5(android_id).toUpperCase();
 
         mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // remove if in real time use
+                .addTestDevice(deviceId)
+                .build();
         mAdView.loadAd(adRequest);
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -173,9 +190,6 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
             }
         });
 
-        //Abir-xml handler
-
-        List<Currency> c = null;
         ab = (Button) findViewById(R.id.button);
         //ae = (EditText) findViewById(R.id.e1);
 
@@ -330,79 +344,43 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void showComponent() {
-        edfrom.setVisibility(View.VISIBLE);
-        edfrom.setX(-500);
-        edfrom.animate()
-                .translationY(edfrom.getWidth())
-                .setDuration(500)
-                .x(0).setStartDelay(100);
+        if(Build.VERSION.SDK_INT > 10){
+            edfrom.setVisibility(View.VISIBLE);
+            edfrom.setX(-500);
+            edfrom.animate()
+                    .translationY(edfrom.getWidth())
+                    .setDuration(500)
+                    .x(0).setStartDelay(100);
 
-        edto.setVisibility(View.VISIBLE);
-        edto.setX(-500);
-        edto.animate()
-                .translationY(edto.getWidth())
-                .setDuration(500)
-                .x(0).setStartDelay(250);
+            edto.setVisibility(View.VISIBLE);
+            edto.setX(-500);
+            edto.animate()
+                    .translationY(edto.getWidth())
+                    .setDuration(500)
+                    .x(0).setStartDelay(250);
 
-        tvFrom.setVisibility(TextView.VISIBLE);
-        tvFrom.setX(-150);
-        tvFrom.animate()
-                .translationY(tvFrom.getWidth())
-                .setDuration(500)
-                .x(10).setStartDelay(400);
+            tvFrom.setVisibility(TextView.VISIBLE);
+            tvFrom.setX(-150);
+            tvFrom.animate()
+                    .translationY(tvFrom.getWidth())
+                    .setDuration(500)
+                    .x(10).setStartDelay(400);
 
-        tvTo.setVisibility(TextView.VISIBLE);
-        tvTo.setX(-150);
-        tvTo.animate()
-                .translationY(tvTo.getWidth())
-                .setDuration(500)
-                .x(10).setStartDelay(550);
+            tvTo.setVisibility(TextView.VISIBLE);
+            tvTo.setX(-150);
+            tvTo.animate()
+                    .translationY(tvTo.getWidth())
+                    .setDuration(500)
+                    .x(10).setStartDelay(550);
 
-        b.setVisibility(View.VISIBLE);
-        b.setX(-900);
-        b.animate()
-                .translationY(b.getWidth())
-                .setDuration(500)
-                .x(0).setStartDelay(500);
+            b.setVisibility(View.VISIBLE);
+            b.setX(-900);
+            b.animate()
+                    .translationY(b.getWidth())
+                    .setDuration(500)
+                    .x(0).setStartDelay(500);
 
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void hideComponent() {
-        edfrom.setVisibility(View.VISIBLE);
-        edfrom.setX(0);
-        edfrom.animate()
-                .translationX(edfrom.getWidth())
-                .setDuration(500).alpha(0.0f)
-                .x(-500).setStartDelay(100);
-
-        edto.setVisibility(View.VISIBLE);
-        edto.setX(0);
-        edto.animate()
-                .translationX(edto.getWidth())
-                .setDuration(500).alpha(0.0f)
-                .x(-500).setStartDelay(250);
-
-        tvFrom.setVisibility(TextView.VISIBLE);
-        tvFrom.setX(10);
-        tvFrom.animate()
-                .translationX(tvFrom.getWidth())
-                .setDuration(500).alpha(0.0f)
-                .x(-150).setStartDelay(400);
-
-        tvTo.setVisibility(TextView.VISIBLE);
-        tvTo.setX(10);
-        tvTo.animate()
-                .translationX(tvTo.getWidth())
-                .setDuration(500).alpha(0.0f)
-                .x(-150).setStartDelay(550);
-
-        b.setVisibility(View.VISIBLE);
-        b.setX(0);
-        b.animate()
-                .translationX(b.getWidth())
-                .setDuration(500).alpha(0.0f)
-                .x(-600).setStartDelay(500);
+        }
 
     }
 
@@ -443,33 +421,37 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //
-        switch (id){
-            case R.id.credit:
-                Intent i=new Intent(this,Credit.class);
-                startActivity(i);
-                return true;
-            case R.id.rate:
-                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
-                }
-                return true;
-            case R.id.contact:
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://www.facebook.com/triumphITbd"));
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(id == R.id.action_search){
+            startActivity(new Intent(MainActivity.this, Menues.class));
         }
+        //
+//        switch (id){
+//            case R.id.credit:
+//                Intent i=new Intent(this,Credit.class);
+//                startActivity(i);
+//                return true;
+//            case R.id.rate:
+//                Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+//                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//
+//                try {
+//                    startActivity(goToMarket);
+//                } catch (ActivityNotFoundException e) {
+//                    startActivity(new Intent(Intent.ACTION_VIEW,
+//                            Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+//                }
+//                return true;
+//            case R.id.contact:
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_VIEW);
+//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+//                intent.setData(Uri.parse("https://www.facebook.com/triumphITbd"));
+//                startActivity(intent);
+//                return true;
+//            default:
+//
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -570,5 +552,24 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         // Add the following line to unregister the Sensor Manager onPause
         mSensorManager.unregisterListener(mShakeDetector);
         super.onPause();
+    }
+
+    public String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i=0; i<messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

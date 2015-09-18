@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.triumphit.converter" >
+    package="com.triumphit.converter"
+    android:versionCode="1"
+    android:versionName="1.0.0.0">
+
+    <uses-sdk android:minSdkVersion="10" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <permission android:name="com.triumphit.converter.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
+    <permission
+        android:name="com.triumphit.converter.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.triumphit.converter.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -18,11 +25,10 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-
     <application
         android:name=".GoogleAnalyticsApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:theme="@style/MyMaterialTheme" >
         <meta-data
@@ -51,9 +57,10 @@
         </receiver>
 
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -66,6 +73,7 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="com.triumphit.converter.MESSAGE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -86,16 +94,24 @@
             android:name="com.pushbots.google.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
+
                 <!-- Receives the actual messages. -->
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.triumphit.converter" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.pushbots.push.DefaultPushHandler" />
+
         <service android:name="com.pushbots.push.GCMIntentService" />
 
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:name=".Menues"
+            android:label="Currency Converter" >
+        </activity>
     </application>
 
 </manifest>
