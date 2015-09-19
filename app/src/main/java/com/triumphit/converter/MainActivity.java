@@ -55,6 +55,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements CustomEvents {
 
+    int RunEvery;
     Button b;
     Spinner from;
     ArrayList country;
@@ -240,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
             int counter = app_preferences.getInt("counter", 0);
 
             // Do every x times
-            int RunEvery = 3;
+            RunEvery = 5;
 
             if(counter != 0  && counter % RunEvery == 0 )
             {
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
                 AlertDialog.Builder alert = new AlertDialog.Builder(
                         MainActivity.this);
                 alert.setTitle("Please rate");
-                alert.setIcon(R.drawable.ic_launcher); //app icon here
+                alert.setIcon(R.drawable.cur); //app icon here
                 alert.setMessage("Thanks for using this free app. Please take a moment to rate it.");
 
                 alert.setPositiveButton("Cancel",
@@ -259,6 +260,15 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
                                 //Do nothing
                             }
                         });
+                alert.setNeutralButton("Never",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                //Do nothing
+                                RunEvery = 6;
+                            }
+                        });
+
 
                 alert.setNegativeButton("Rate it",
                         new DialogInterface.OnClickListener() {
@@ -276,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
                                             Uri.parse("http://play.google.com/store/apps/details?id="
                                                     + appName)));
                                 }
+                                RunEvery=100;
 
                             }
                         });
