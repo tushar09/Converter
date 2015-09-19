@@ -22,6 +22,6 @@
 
     <integer name="ga_sessionTimeout">-1</integer>
 
-    <string name="prime.beatbox.MainActivity">MainActivity</string>
+    <string name="com.triumphit.converter.MainActivity">MainActivity</string>
 
 </resources>

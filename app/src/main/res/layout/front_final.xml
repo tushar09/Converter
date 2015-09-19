@@ -271,7 +271,6 @@
                 ads:adUnitId="ca-app-pub-2851562992535827/4771111398">
             </com.google.android.gms.ads.AdView>
 
-
         </RelativeLayout>
 
     </LinearLayout>

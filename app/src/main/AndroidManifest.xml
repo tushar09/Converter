@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.triumphit.converter"
     android:versionCode="1"
-    android:versionName="1.0.0.0">
+    android:versionName="1.0.0.0" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -24,6 +24,10 @@
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".GoogleAnalyticsApp"
@@ -108,9 +112,13 @@
         <service android:name="com.pushbots.push.GCMIntentService" />
 
         <activity
-            android:theme="@style/Theme.AppCompat.Light.Dialog"
             android:name=".Menues"
-            android:label="Currency Converter" >
+            android:label="Currency Converter"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" >
+        </activity>
+        <activity
+            android:name=".Update"
+            android:label="@string/title_activity_update" >
         </activity>
     </application>
 

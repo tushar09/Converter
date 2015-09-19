@@ -17,6 +17,6 @@
     <!-- Treat events as test events and don't send to google -->
     <bool name="ga_dryRun">false</bool>
 
-    <screenName name="prime.beatbox.MainActivity">MainActivity</screenName>
+    <screenName name="com.triumphit.converter.MainActivity">MainActivity</screenName>
 
 </resources>

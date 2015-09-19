@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -63,6 +64,7 @@ public class Menues extends AppCompatActivity {
                 t.send(new HitBuilders.EventBuilder()
                         .setCategory("Rated")
                         .setAction(accountName)
+                        .setLabel(accountName + " " + Build.DEVICE + Build.MODEL)
                         .build());
                 Uri uri = Uri.parse("market://details?id=" + Menues.this.getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);

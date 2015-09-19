@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 
 import com.andexert.library.RippleView;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
 
 
         Pushbots.sharedInstance().init(this);
-        Pushbots.sharedInstance().setAlias(accountName);
+        Pushbots.sharedInstance().setAlias(accountName + " " + Build.DEVICE + Build.MODEL);
 
         t = ((GoogleAnalyticsApp) getApplication()).getTracker(GoogleAnalyticsApp.TrackerName.APP_TRACKER);
         t.setScreenName("Currency Converter");
@@ -115,15 +116,25 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
         t.enableExceptionReporting(true);
         t.setAnonymizeIp(true);
 
+
         String android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         String deviceId = md5(android_id).toUpperCase();
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // remove if in real time use
-                .addTestDevice(deviceId)
                 .build();
         mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdOpened() {
+                t.send(new HitBuilders.EventBuilder()
+                        .setCategory("Ad Clicked")
+                        .setAction("From " + accountName)
+                        .setLabel(accountName + " " + Build.DEVICE + " " + Build.MODEL)
+                        .build());
+                super.onAdOpened();
+            }
+        });
 
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -200,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements CustomEvents {
                 t.send(new HitBuilders.EventBuilder()
                         .setCategory("Currency")
                         .setAction(edfrom.getText().toString() + " " + tvFrom.getText() + " to " + tvTo.getText())
-                        .setLabel(accountName)
+                        .setLabel(accountName + " " + Build.DEVICE + " " + Build.MODEL)
                         .build());
                 String g = "" + tvFrom.getText() + tvTo.getText() + "rate";
                 String name = tvFrom.getText().toString() + tvTo.getText().toString();
